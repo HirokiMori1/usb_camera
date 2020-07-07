@@ -3,15 +3,15 @@
 
 import rospy
 import rosbag
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 
 class Camera():
     def __init__(self):
-        self.image_subscriber = rospy.Subscriber("/image_raw/compressed", Image, self.image_callback)
+        self.image_subscriber = rospy.Subscriber("/image_raw", Image, self.image_callback)
         self.bag = rosbag.Bag('test.bag', 'w')
 
     def image_callback(self, data):
-        self.bag.write("/image_raw/compressed", data)
+        self.bag.write("/image", data)
 
 if __name__ == "__main__":
     rospy.init_node("record_camera")
